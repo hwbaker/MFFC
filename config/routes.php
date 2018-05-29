@@ -16,7 +16,8 @@ Macaw::get('/hello', function() {
     echo "hello！";
 });
 
-Macaw::get('/home', 'HomeController@home');
+Macaw::get('/warehouse', 'HomeController@warehouse');
+Macaw::get('/company', 'HomeController@company');
 
 
 Macaw::get('(:all)', function($fu) {
