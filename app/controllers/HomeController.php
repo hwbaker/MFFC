@@ -17,10 +17,15 @@ class HomeController extends BaseController
 
     public function company()
     {
-        $company = Company::all();
+//        $company = Company::all();
 //        foreach ($company as $flight) {
 //            echo $flight->system_name;
 //        }
+
+        $company = Company::where('is_enabled', 1)
+            ->orderBy('id', 'desc')
+            ->take(100)
+            ->get();
 
         require dirname(__FILE__) . '/../views/company.php';
     }
