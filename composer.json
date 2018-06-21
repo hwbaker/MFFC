@@ -1,7 +1,8 @@
 {
   "require": {
     "noahbuscher/macaw": "dev-master",
-    "illuminate/database": "*"
+    "illuminate/database": "*",
+    "phpoffice/phpspreadsheet": "^1.3"
   },
 
   "autoload": {
