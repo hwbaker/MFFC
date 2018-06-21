@@ -8,6 +8,8 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+//error_reporting(E_ERROR | E_WARNING | E_NOTICE);
+ini_set("display_errors", "On");
 // Autoload 自动载入
 require '../vendor/autoload.php';
 
