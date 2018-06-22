@@ -34,7 +34,7 @@ class HomeController extends BaseController
     }
 
     /**
-     * @desc Excel生成下载
+     * @desc Excel生成下载->phpspreadsheet
      * @throws Exception
      */
     public function uploadExcel()
@@ -88,10 +88,12 @@ class HomeController extends BaseController
                 ++$i;
             }
 
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="hwrite2.xlsx"');
-            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-            $writer->save('php://output');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); //告诉浏览器输出07Excel文件
+//            header('Content-Type:application/vnd.ms-excel');//告诉浏览器将要输出Excel03版本文件
+            header('Content-Disposition: attachment;filename="hwrite2.xlsx"'); //告诉浏览器输出文件名称
+            header('Cache-Control: max-age=0');//禁止缓存
+//            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+//            $writer->save('php://output');
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
