@@ -20,7 +20,9 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
+            'Psr\\Cache\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
         ),
         'N' => 
@@ -38,6 +40,14 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
+        'C' => 
+        array (
+            'Cache\\TagInterop\\' => 17,
+            'Cache\\Hierarchy\\' => 16,
+            'Cache\\Bridge\\SimpleCache\\' => 25,
+            'Cache\\Adapter\\Redis\\' => 20,
+            'Cache\\Adapter\\Common\\' => 21,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -53,9 +63,17 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
         'PhpOffice\\PhpSpreadsheet\\' => 
         array (
@@ -84,6 +102,26 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
+        'Cache\\TagInterop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/tag-interop',
+        ),
+        'Cache\\Hierarchy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/hierarchical-cache',
+        ),
+        'Cache\\Bridge\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/simple-cache-bridge',
+        ),
+        'Cache\\Adapter\\Redis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/redis-adapter',
+        ),
+        'Cache\\Adapter\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/adapter-common',
         ),
     );
 
