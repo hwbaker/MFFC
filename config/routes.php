@@ -19,7 +19,7 @@ Macaw::get('/hello', function() {
 Macaw::get('/warehouse', 'HomeController@warehouse');
 Macaw::get('/company', 'HomeController@company');
 Macaw::get('/uploadExcel', 'HomeController@uploadExcel');
-
+Macaw::get('/phpExcel', 'HomeController@phpExcel');
 
 Macaw::get('(:all)', function($fu) {
     echo '未匹配到路由<br>'.$fu;
