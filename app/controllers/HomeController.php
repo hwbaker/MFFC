@@ -50,9 +50,9 @@ class HomeController extends BaseController
 
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
-            $sheet->setCellValue('A1', 'Hello World !');
+            $sheet->setCellValue('A1', 'Hello World!');
             $writer = new Xlsx($spreadsheet);
-            $writer->save('htest.xlsx');
+//            $writer->save('htest.xlsx');
             // 释放内存
             $spreadsheet->disconnectWorksheets();
             unset($spreadsheet);
@@ -98,10 +98,9 @@ class HomeController extends BaseController
                 ++$i;
             }
 
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); //告诉浏览器输出07Excel文件
-//            header('Content-Type:application/vnd.ms-excel');//告诉浏览器将要输出Excel03版本文件
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); //告诉浏览器输出07Excel文件 header('Content-Type:application/vnd.ms-excel');//告诉浏览器将要输出Excel03版本文件
             header('Content-Disposition: attachment;filename="hwrite2.xlsx"'); //告诉浏览器输出文件名称
-//            header('Cache-Control: max-age=0');//禁止缓存
+            header('Cache-Control: max-age=0');//禁止缓存
             $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save('php://output');
 
