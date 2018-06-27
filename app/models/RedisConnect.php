@@ -66,4 +66,166 @@ class RedisConnect
         self::$instance = null;
     }
 
+    /*****************hash表操作函数-sta*******************/
+
+    /**
+     * @desc 为hash表中的一个字段设定值
+     * @param $key
+     * @param $field
+     * @param $value
+     * @return int
+     */
+    public function hSet($key, $field, $value)
+    {
+        return $this->redis->hSet($key, $field, $value);
+    }
+
+    /**
+     * @desc 得到hash表中的一个值
+     * @param $key
+     * @param $field
+     * @return string
+     */
+    public function hGet($key, $field)
+    {
+        return $this->redis->hGet($key, $field);
+    }
+
+    /**
+     * @desc 返回所有hash表的字段值，为一个关联数组
+     * @param $key
+     * @return mixed
+     */
+    public function hGetAll($key)
+    {
+        return $this->redis->hGetAll($key);
+    }
+
+    /**
+     * @desc 返回所有hash表的字段值，为一个索引数组
+     * @param $key
+     * @return array
+     */
+    public function hVals($key)
+    {
+        return $this->redis->hVals($key);
+    }
+
+    /**
+     * @desc 返回所有hash表的字段
+     * @param $key
+     * @return array
+     */
+    public function hKeys($key)
+    {
+        return $this->redis->hKeys($key);
+    }
+
+    /**
+     * @desc 删除hash表字段的值，删除多个字段用,分隔
+     * @param $key
+     * @param $fields
+     * @return int
+     */
+    public function hDel($key, $fields)
+    {
+        $fieldArr = explode(',', $fields);
+        $num = 0;
+
+        foreach ($fieldArr as $row) {
+            $num += $this->redis->hDel($key, trim($row));
+        }
+
+        return $num;
+    }
+
+    /**
+     * @desc 返回hash表元素个数
+     * @param $key
+     * @return int
+     */
+    public function hLen($key)
+    {
+        return $this->redis->hLen($key);
+    }
+
+    /**
+     * @desc 设定hash表的不存在的字段值。如果存在返回false
+     * @param $key
+     * @param $field
+     * @param $value
+     * @return bool
+     */
+    public function hSetNx($key, $field, $value)
+    {
+        return $this->redis->hSetNx($key, $field, $value);
+    }
+
+    /**
+     * @desc 为hash表多个字段设定值
+     * @param $key
+     * @param array $value
+     * @return bool
+     */
+    public function hMset($key, array $value)
+    {
+        if (!is_array($value)) {
+            return false;
+        }
+        return $this->redis->hMset($key, $value);
+    }
+
+    /**
+     * @desc 获取hash表多个字段值
+     * @param $key
+     * @param $field
+     * @return array
+     */
+    public function hMget($key, $field)
+    {
+        if (!is_array($field)) {
+            $field = explode(',', $field);
+        }
+
+        return $this->redis->hMGet($key, $field);
+    }
+
+    /**
+     * @desc 为hash表字段设整数累加,$value可为负数
+     * @param $key
+     * @param $field
+     * @param int $value
+     * @return int
+     */
+    public function hIncrBy($key, $field, $value)
+    {
+        $value = intval($value);
+        return $this->redis->hIncrBy($key,$field, $value);
+    }
+
+    /**
+     * @desc 为hash表字段设浮点数累加,$value可为负数
+     * @param $key
+     * @param $field
+     * @param $value
+     * @return float
+     */
+    public function hIncrByFloat($key, $field, $value)
+    {
+        $value = floatval($value);
+        return $this->redis->hIncrByFloat($key,$field, $value);
+    }
+
+    /**
+     * @desc 判断hash表中指定的字段是否存在
+     * @param $key
+     * @param $field
+     * @return bool
+     */
+    public function hExists($key, $field)
+    {
+        return $this->redis->hExists($key, $field);
+    }
+    /*****************hash表操作函数-end*******************/
+
 }
