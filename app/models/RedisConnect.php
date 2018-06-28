@@ -228,4 +228,169 @@ class RedisConnect
     }
     /*****************hash表操作函数-end*******************/
 
+
+    /*****************无需集合操作函数-sta*******************/
+
+    /**
+     * @desc 集合中添加元素
+     * @param $key
+     * @param array $values
+     * @return bool
+     */
+    public function sAddArray($key, array $values)
+    {
+        if (!is_array($values)) {
+            return false;
+        }
+
+        return $this->redis->sAddArray($key, $values);
+    }
+
+    /**
+     * @desc 获取集合元素
+     * @param $key
+     * @return int
+     */
+    public function sCard($key)
+    {
+        return $this->redis->sCard($key);
+    }
+
+    /**
+     * @desc 返回给定结合之间的差集.key1-key2
+     * @param $key1
+     * @param $key2
+     * @return array
+     */
+    public function sDiff($key1, $key2)
+    {
+        return $this->redis->sDiff($key1, $key2);
+    }
+
+    /**
+     * @desc 将给定集合之间的差集存储在指定的集合中。如果指定的集合 key 已存在，则会被覆盖。
+     * @param $dstKey
+     * @param $key1
+     * @param $key2
+     * @return int
+     */
+    public function sDiffStore($dstKey, $key1, $key2)
+    {
+        return $this->redis->sDiffStore($dstKey, $key1, $key2);
+    }
+
+    /**
+     * @desc 返回给定所有给定集合的交集
+     * @param $key1
+     * @param $key2
+     * @return array
+     */
+    public function sInter($key1, $key2)
+    {
+        return $this->redis->sInter($key1, $key2);
+    }
+
+    /**
+     * @desc 将给定集合之间的交集存储在指定的集合中。如果指定的集合已经存在，则将其覆盖。
+     * @param $dstKey
+     * @param $key1
+     * @param $key2
+     * @return int
+     */
+    public function sInterStore($dstKey, $key1, $key2)
+    {
+        return $this->redis->sInterStore($dstKey, $key1, $key2);
+    }
+
+    /**
+     * @desc 返回集合成员
+     * @param $key
+     * @return array
+     */
+    public function sMembers($key)
+    {
+        return $this->redis->sMembers($key);
+    }
+
+    /**
+     * @desc 判断 member 元素是否是集合 key 的成员
+     * @param $key
+     * @param $member
+     * @return bool
+     */
+    public function sIsMember($key, $member)
+    {
+        return $this->redis->sIsMember($key, $member);
+    }
+
+    /**
+     * @desc  将 member 元素从 source 集合移动到 destination 集合
+     * @param $srcKey
+     * @param $desKey
+     * @param $member
+     * @return bool
+     */
+    public function sMove($srcKey, $desKey, $member)
+    {
+        return $this->redis->sMove($srcKey, $desKey, $member);
+    }
+
+    /**
+     * @desc 移除并返回集合中的一个随机元素
+     * @param $key
+     * @return string
+     */
+    public function sPop($key)
+    {
+        return $this->redis->sPop($key);
+    }
+
+    /**
+     * @desc 返回集合中一个或多个随元素
+     * @param $key
+     * @param int $count
+     * @return array|string
+     */
+    public function sRandMember($key, $count = 1)
+    {
+        return $this->redis->sRandMember($key, intval($count));
+    }
+
+    /**
+     * @desc 移除集合中一个元素
+     * @param $key
+     * @param $member
+     * @return int
+     */
+    public function sRem($key, $member)
+    {
+        return $this->redis->sRem($key, $member);
+    }
+
+    /**
+     * @desc 返回所有给定两个集合的并集
+     * @param $key1
+     * @param $key2
+     * @return array
+     */
+    public function sUnion($key1, $key2)
+    {
+        return $this->redis->sUnion($key1, $key2);
+    }
+
+    /**
+     * @desc 给定集合的并集存储在 destination 集合中
+     * @param $dstKey
+     * @param $key1
+     * @param $key2
+     * @return int
+     */
+    public function sUnionStore($dstKey, $key1, $key2)
+    {
+        return $this->redis->sUnionStore($dstKey, $key1, $key2);
+    }
+
+
+    /*****************无需集合操作函数-end*******************/
+
 }

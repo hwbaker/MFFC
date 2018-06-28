@@ -9,7 +9,10 @@
 
 class RedisController
 {
-    public function redisDemo()
+    /**
+     * @desc hash哈希demo
+     */
+    public function redisHash()
     {
         $redisConn = RedisConnect::getInstanceRedis();
         $userInfo = $redisConn->hGet('user:1:info', 'name');
@@ -67,5 +70,79 @@ class RedisController
 //        $pool = new \Cache\Adapter\Redis\RedisCachePool($client);
 //        $simpleCache = new \Cache\Bridge\SimpleCache\SimpleCacheBridge($pool);
 //        $simpleCache->set('A', 'A1');
+    }
+
+    /**
+     * @desc sort无需集合demo
+     */
+    public function redisSort()
+    {
+        $followKey = 'user:1:follow';
+        $redisConn = RedisConnect::getInstanceRedis();
+        $userInfo = $redisConn->getRedisConn()->sAdd($followKey, 'it');
+        echo $followKey . '->sAdd : ' . print_r($userInfo, true);
+
+        $followKey2 = 'user:2:follow';
+        $userInfo = $redisConn->sAddArray($followKey2, array('it1', 'news1'));
+        echo "<br>";
+        echo $followKey2 . '->sAddArray : ' . print_r($userInfo, true);
+
+        $userInfo = $redisConn->sCard($followKey);
+        echo "<br>";
+        echo $followKey . '->sCard : ' . print_r($userInfo, true);
+
+        $userInfo = $redisConn->sMembers($followKey);
+        echo "<br>";
+        echo $followKey . '->sMembers : ' . print_r($userInfo, true);
+        $userInfo = $redisConn->sMembers($followKey2);
+        echo "<br>";
+        echo $followKey2 . '->sMembers : ' . print_r($userInfo, true);
+
+        $userInfo = $redisConn->sDiff($followKey, $followKey2);
+        echo "<br>";
+        echo '->sDiff 1=>2 : ' . print_r($userInfo, true);
+
+        $userInfo = $redisConn->sDiff($followKey2, $followKey);
+        echo "<br>";
+        echo '->sDiff 2=>1 : ' . print_r($userInfo, true);
+
+        $redisConn->sDiffStore('destset', $followKey, $followKey2);
+        echo "<br>";
+        echo '->sDiffStore destset : ' . print_r($redisConn->sMembers('destset'), true);
+
+        $userInfo = $redisConn->sInter($followKey, $followKey2);
+        echo "<br>";
+        echo '->sInter : ' . print_r($userInfo, true);
+
+        $redisConn->sInterStore('destset', $followKey, $followKey2);
+        echo "<br>";
+        echo '->sInterStore destset : ' . print_r($redisConn->sMembers('destset'), true);
+
+        $userInfo = $redisConn->sIsMember($followKey, 'it1');
+        var_dump($userInfo);
+
+        $redisConn->sMove($followKey2, $followKey, 'news1');
+        echo "<br>";
+        echo '->sMove : ' . print_r($redisConn->sMembers($followKey), true);
+
+        $userInfo = $redisConn->sRandMember($followKey, 3);
+        echo "<br>";
+        echo '->sRandMember : ' . print_r($userInfo, true);
+
+        $userInfo = $redisConn->sRem($followKey, 'news1');
+        echo "<br>";
+        echo '->sRem : ' . print_r($userInfo, true);
+
+        echo "<br>" . $followKey . '->sMembers : ' . print_r($redisConn->sMembers($followKey), true);
+        echo "<br>" . $followKey2 . '->sMembers : ' . print_r($redisConn->sMembers($followKey2), true);
+
+        $userInfo = $redisConn->sUnion($followKey, $followKey2);
+        echo "<br>";
+        echo '->sUnion : ' . print_r($userInfo, true);
+
+        $redisConn->sUnionStore('mytest', $followKey, $followKey2);
+        echo "<br>";
+        echo '->sUnionStore : ' . print_r($redisConn->sMembers('mytest'), true);
+
     }
 }
