@@ -22,7 +22,9 @@ Macaw::get('/company', 'HomeController@company');
 //Macaw::get('/phpExcel', 'HomeController@phpExcel');
 
 Macaw::get('/redisHash', 'RedisController@redisHash');
+Macaw::get('/redisList', 'RedisController@redisList');
 Macaw::get('/redisSort', 'RedisController@redisSort');
+Macaw::get('/redisZSort', 'RedisController@redisZSort');
 
 Macaw::get('(:all)', function($fu) {
     echo '未匹配到路由<br>'.$fu;

@@ -73,7 +73,76 @@ class RedisController
     }
 
     /**
-     * @desc sort无需集合demo
+     * @desc list列表demo
+     */
+    public function redisList()
+    {
+        $key = 'mylist';
+        $redisConn = RedisConnect::getInstanceRedis();
+//        var_dump($redisConn->lPush($key, 'a'));
+
+        $myList = $redisConn->lRange($key, 0, -1);
+        echo 'lRange: ' . print_r($myList, true);
+
+        $redisConn->lInsert($key, Redis::AFTER, 'c', 'd');
+        $myList = $redisConn->lRange($key, 0, -1);
+        echo "<br>";
+        echo 'lInsert: ' . print_r($myList, true);
+
+        $ele = $redisConn->lIndex($key, 6);
+        echo "<br>";
+        echo 'lIndex: ' . print_r($ele, true);
+
+        $len = $redisConn->lLen($key);
+        echo "<br>";
+        echo 'lLen: ' . print_r($len, true);
+
+        $ele = $redisConn->lPop($key);
+        echo "<br>";
+        echo 'lPop: ' . print_r($ele, true);
+        echo "<br>";
+        echo 'lRange: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $redisConn->lPushx($key, 'second');
+        echo "<br>";
+        echo 'lPushx: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $redisConn->lRem($key, 1, 'd');
+        echo "<br>";
+        echo 'lRange: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $redisConn->lSet($key, 0 , 'third');
+        echo "<br>";
+        echo 'lSet: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+//        $redisConn->lTrim($key, 0, 3);
+//        echo "<br>";
+//        echo 'lTrim: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $redisConn->rPush($key, 'g');
+        echo "<br>";
+        echo 'rPush: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $redisConn->rPushx($key, 'h');
+        echo "<br>";
+        echo 'rPushx: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $pop = $redisConn->rPop($key);
+        echo "<br>";
+        echo 'rpop:' . print_r($pop, true);
+        echo "<br>";
+        echo 'lRange: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+        $desKey = $redisConn->rPopLPush($key, 'desKey');
+        echo "<br>";
+        echo 'rPopLPush: ' . print_r($desKey, true);
+        echo "<br>";
+        echo 'lRange: ' . print_r($redisConn->lRange($key, 0, -1), true);
+
+    }
+
+    /**
+     * @desc sort有序集合demo
      */
     public function redisSort()
     {
@@ -144,5 +213,13 @@ class RedisController
         echo "<br>";
         echo '->sUnionStore : ' . print_r($redisConn->sMembers('mytest'), true);
 
+    }
+
+    /**
+     * @desc zsort有序集合demo
+     */
+    public function redisZSort()
+    {
+        $redisConn = RedisConnect::getInstanceRedis();
     }
 }

@@ -229,7 +229,202 @@ class RedisConnect
     /*****************hash表操作函数-end*******************/
 
 
-    /*****************无需集合操作函数-sta*******************/
+    /*****************List列表操作函数-sta******************/
+
+    /**
+     * @desc 将一个元素插入列表头部
+     * @param $key
+     * @param $value
+     * @return int
+     */
+    public function lPush($key, $value)
+    {
+        return $this->redis->lPush($key, $value);
+    }
+
+    /**
+     * @desc 将一个元素插入到已存在的列表头部，列表不存在时操作无效
+     * @param $key
+     * @param $value
+     * @return int
+     */
+    public function lPushx($key, $value)
+    {
+        return $this->redis->lPushx($key, $value);
+    }
+
+    /**
+     * @desc 获取列表指定范围内的元素
+     * @param $key
+     * @param $sta
+     * @param $end
+     * @return array
+     */
+    public function lRange($key, $sta, $end)
+    {
+        return $this->redis->lRange($key, $sta, $end);
+    }
+
+    /**
+     * @desc 在列表的元素前或者后插入元素
+     * @param $key
+     * @param $position
+     * @param $pivot
+     * @param $value
+     * @return int
+     */
+    public function lInsert($key, $position, $pivot, $value )
+    {
+        return $this->redis->lInsert($key, $position, $pivot, $value );
+    }
+
+    /**
+     * @desc 通过索引获取列表中的元素
+     * @param $key
+     * @param $index
+     * @return String
+     */
+    public function lIndex($key, $index)
+    {
+        return $this->redis->lIndex($key, $index);
+    }
+
+    /**
+     * @desc 获取列表长度
+     * @param $key
+     * @return int
+     */
+    public function lLen($key)
+    {
+        return $this->redis->lLen($key);
+    }
+
+    /**
+     * @desc 移出并获取列表的第一个元素
+     * @param $key
+     * @return string
+     */
+    public function lPop($key)
+    {
+        return $this->redis->lPop($key);
+    }
+
+    /**
+     * @desc 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素
+     * @param $key
+     * @param $count
+     * @param $value
+     * @return int
+     */
+    public function lRem($key, $count, $value)
+    {
+        return $this->redis->lRem($key, $value, $count);
+    }
+
+    /**
+     * @desc 通过索引设置列表元素的值
+     * @param $key
+     * @param $index
+     * @param $value
+     * @return bool
+     */
+    public function lSet($key, $index, $value)
+    {
+        return $this->redis->lSet($key, $index, $value);
+    }
+
+    /**
+     * @desc 对一个列表进行修剪(trim)，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除
+     * @param $key
+     * @param $sta
+     * @param $stop
+     * @return array
+     */
+    public function lTrim($key, $sta, $stop)
+    {
+        return $this->redis->lTrim($key, $sta, $stop);
+    }
+
+    /**
+     * @desc 将一个元素加入列表尾部
+     * @param $key
+     * @param $value
+     * @return int
+     */
+    public function rPush($key, $value)
+    {
+        return $this->redis->rPush($key, $value);
+    }
+
+    /**
+     * @desc 将一个元素插入到已存在的列表尾部。如果列表不存在，操作无效
+     * @param $key
+     * @param $value
+     * @return int
+     */
+    public function rPushx($key, $value)
+    {
+        return $this->redis->rPushx($key, $value);
+    }
+
+    /**
+     * @desc 移除并获取列表最后一个元素
+     * @param $key
+     * @return string
+     */
+    public function rPop($key)
+    {
+        return $this->redis->rPop($key);
+    }
+
+    /**
+     * @desc 移除srcKey列表的最后一个元素，并将该元素添加到另一个列表desKey并返回
+     * @param $srcKey
+     * @param $desKey
+     * @return string
+     */
+    public function rPopLPush($srcKey, $desKey)
+    {
+        return $this->redis->rpoplpush($srcKey, $desKey);
+    }
+
+    /**
+     * @desc 移出并获取列表的第一个元素，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param $key
+     * @param $timeOut
+     * @return array
+     */
+    public function bLPop($key, $timeOut)
+    {
+        return $this->redis->blPop($key, $timeOut);
+    }
+
+    /**
+     * @desc  移出并获取列表的最后一个元素，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param $key
+     * @param $timeOut
+     * @return array
+     */
+    public function bRPop($key, $timeOut)
+    {
+        return  $this->redis->brPop($key, $timeOut);
+    }
+
+    /**
+     * @desc 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它；如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param $srcKey
+     * @param $dstKey
+     * @param $timeOut
+     * @return string
+     */
+    public function bRPopLPush($srcKey, $dstKey, $timeOut)
+    {
+        return $this->redis->brpoplpush($srcKey, $dstKey, $timeOut);
+    }
+
+    /*****************List列表操作函数-end******************/
+
+    /*****************集合操作函数-sta******************/
 
     /**
      * @desc 集合中添加元素
@@ -389,8 +584,10 @@ class RedisConnect
     {
         return $this->redis->sUnionStore($dstKey, $key1, $key2);
     }
+    /*****************集合操作函数-end******************/
 
-
-    /*****************无需集合操作函数-end*******************/
+    /*****************有序集合操作函数-sta******************/
+    
+    /*****************有序集合操作函数-end******************/
 
 }
