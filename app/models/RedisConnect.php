@@ -587,7 +587,197 @@ class RedisConnect
     /*****************集合操作函数-end******************/
 
     /*****************有序集合操作函数-sta******************/
-    
+
+    /**
+     * @desc 向有序集合添加一个成员，或者更新已存在成员的分数
+     * @param $key
+     * @param $score
+     * @param $value
+     * @return int
+     */
+    public function zAdd($key, $score, $value)
+    {
+        return $this->redis->zAdd($key, $score, $value);
+    }
+
+    /**
+     * @desc 获取有序集合的成员数,集合必须有序
+     * @param $key
+     * @return int
+     */
+    public function zCard($key)
+    {
+        return $this->redis->zCard($key);
+    }
+
+    /**
+     * @desc 计算在有序集合中指定区间分数的成员数
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return int
+     */
+    public function zCount($key, $start, $end)
+    {
+        return $this->redis->zCount($key, $start, $end);
+    }
+
+    /**
+     * @desc 有序集合中对指定成员的分数加上增量 increment
+     * @param $key
+     * @param $increment
+     * @param $member
+     * @return float
+     */
+    public function zIncrBy($key, $increment, $member)
+    {
+        return $this->redis->zIncrBy($key, $increment, $member);
+    }
+
+    /**
+     * @desc 通过索引区间返回有序集合成指定区间内的成员。0表示第一个元素，-1表示最后一个元素
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function zRange($key, $start, $end, $withscores = false)
+    {
+        return $this->redis->zRange($key, $start, $end, $withscores);
+    }
+
+    /**
+     * @desc 通过字典区间返回有序集合的成员
+     * @param $key
+     * @param $min -
+     * @param $max (c
+     * @param int $offset
+     * @param int $limit
+     * @return array
+     */
+    public function zRangeByLex($key, $min, $max, $offset = 0, $limit = 0)
+    {
+        return $this->redis->zRangeByLex($key, $min, $max, $offset, $limit);
+    }
+
+    /**
+     * @desc Redis Zrangebyscore 返回有序集合中指定分数区间的成员列表。有序集成员按分数值递增(从小到大)次序排列。
+     * min和max可以是-inf和+inf　表示最大值，最小值
+     * 默认情况下，区间的取值使用闭区间 (小于等于或大于等于)，你也可以通过给参数前增加 ( 符号来使用可选的开区间 (小于或大于)
+     * @param $key
+     * @param $start
+     * @param $end
+     * @param array $options
+     * @return array
+     */
+    public function zRangeByScore($key, $start, $end, array $options = array())
+    {
+        return $this->redis->zRangeByScore($key, $start, $end, $options);
+    }
+
+    /**
+     * @desc 返回有序集合中指定成员的索引
+     * @param $key
+     * @param $member
+     * @return int
+     */
+    public function zRank($key, $member)
+    {
+        return $this->redis->zRank($key, $member);
+    }
+
+    /**
+     * @desc 移除有序集合中的一个成员
+     * @param $key
+     * @param $member
+     * @return int
+     */
+    public function zRem($key, $member)
+    {
+        return $this->redis->zRem($key, $member);
+    }
+
+    /**
+     * @desc 移除有序集合中给定的排名区间的所有成员(按索引移除)
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return int
+     */
+    public function zRemRangeByRank($key, $start, $end)
+    {
+       return $this->redis->zRemRangeByRank($key, $start, $end);
+    }
+
+    /**
+     * @desc 移除有序集合中给定的分数区间的所有成员
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return int
+     */
+    public function zRemRangeByScore($key, $start, $end)
+    {
+        return $this->redis->zRemRangeByScore($key, $start, $end);
+    }
+
+    /**
+     * @desc 返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序
+     * @param $key
+     * @param $member
+     * @return int
+     */
+    public function zRevRank($key, $member)
+    {
+        return $this->redis->zRevRank($key, $member);
+    }
+
+    /**
+     * @desc 返回有序集中指定区间内的成员，通过索引，分数从高到低
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function zRevRange($key, $start, $end, $withscores = false)
+    {
+        return $this->redis->zRevRange($key, $start, $end, $withscores);
+    }
+
+    /**
+     * @desc 返回有序集中指定分数区间内的成员，分数从高到低排序
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function zRevRangeByScore($key, $start, $end)
+    {
+        return $this->redis->zRevRangeByScore($key, $start, $end);
+    }
+
+    /**
+     * @desc 通过字典区间返回有序集合的成员，分数从高到低
+     * @param $key
+     * @param $min
+     * @param $max
+     * @return array
+     */
+    public function zRevRangeByLex($key, $min, $max)
+    {
+        return $this->redis->zRevRangeByLex($key, $min, $max);
+    }
+
+    /**
+     * @desc 返回有序集中，成员的分数值
+     * @param $key
+     * @param $member
+     * @return float
+     */
+    public function zScore($key, $member)
+    {
+        return $this->redis->zScore($key, $member);
+    }
     /*****************有序集合操作函数-end******************/
 
 }

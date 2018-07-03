@@ -220,6 +220,65 @@ class RedisController
      */
     public function redisZSort()
     {
+        $userRankingKey = 'user:ranking';
         $redisConn = RedisConnect::getInstanceRedis();
+        $flag = $redisConn->zAdd($userRankingKey, 3, 'c');
+        var_dump($flag);
+
+        $zcard = $redisConn->zCard($userRankingKey);
+        echo 'zcard：' . print_r($zcard, true);
+
+        $acount = $redisConn->zCount($userRankingKey, 1, $zcard);
+        echo "<br>";
+        echo 'zcount：' . print_r($acount, true);
+
+        $range = $redisConn->zRange($userRankingKey, 0, -1, true);
+        echo "<br>";
+        echo 'range：' . print_r($range, true);
+
+        $zRangeByLex = $redisConn->zRangeByLex($userRankingKey, '-', '(c', 0, $zcard);
+        echo "<br>";
+        echo 'zRangeByLex - (c：' . print_r($zRangeByLex, true);
+
+        $zRangeByScore = $redisConn->zRangeByScore($userRankingKey, 1, 5);
+        echo "<br>";
+        echo 'zRangeByScore 1 5：' . print_r($zRangeByScore, true);
+
+        $zRank = $redisConn->zRank($userRankingKey, 'a');
+        echo "<br>";
+        echo 'zRank：' . print_r($zRank, true);
+
+        $zRem = $redisConn->zRem($userRankingKey, 'h');
+        echo "<br>";
+        echo 'zRem：' . print_r($zRem, true);
+
+//        $zRemRangeByRank = $redisConn->zRemRangeByRank($userRankingKey, 0, 0);
+//        echo "<br>";
+//        echo 'zRemRangeByRank：' . print_r($zRemRangeByRank, true);
+
+//        $zRemRangeByScore = $redisConn->zRemRangeByScore($userRankingKey, 1, 3);
+//        echo "<br>";
+//        echo 'zRemRangeByScore：' . print_r($zRemRangeByScore, true);
+
+        $zRevRank = $redisConn->zRevRank($userRankingKey, 'c');
+        echo "<br>";
+        echo 'zRevRank c：' . print_r($zRevRank, true);
+
+        $zRevRange = $redisConn->zRevRange($userRankingKey, 0, -1, true);
+        echo "<br>";
+        echo 'zRevRange：' . print_r($zRevRange, true);
+
+        $zRevRangeByScore = $redisConn->zRevRangeByScore($userRankingKey, 7, 4);
+        echo "<br>";
+        echo 'zRevRangeByScore 7 4：' . print_r($zRevRangeByScore, true);
+
+        $zRevRangeByLex = $redisConn->zRevRangeByLex($userRankingKey, '[i', '[f');
+        echo "<br>";
+        echo 'zRevRangeByLex [i [f ：' . print_r($zRevRangeByLex, true);
+
+        $zScore = $redisConn->zScore($userRankingKey, 'f');
+        echo "<br>";
+        echo 'zScore f：' . print_r($zScore, true);
+
     }
 }
