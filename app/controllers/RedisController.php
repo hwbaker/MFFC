@@ -281,4 +281,17 @@ class RedisController
         echo 'zScore f：' . print_r($zScore, true);
 
     }
+
+    /**
+     * @desc string操作
+     */
+    public function redisString()
+    {
+        $redisConn = RedisConnect::getInstanceRedis();
+        $res = $redisConn->append('hello', 'world');
+        echo 'append:' . print_r($res, true);
+
+
+
+    }
 }

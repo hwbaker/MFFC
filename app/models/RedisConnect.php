@@ -541,7 +541,7 @@ class RedisConnect
     }
 
     /**
-     * @desc 返回集合中一个或多个随元素
+     * @desc 返回集合中一个或多个随机元素
      * @param $key
      * @param int $count
      * @return array|string
@@ -769,6 +769,31 @@ class RedisConnect
     }
 
     /**
+     * 参考：http://redisdoc.com/
+     * @desc 计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到 destination 。
+     * 默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之 和
+     * @param $Output
+     * @param $ZSetKeys
+     * @return int
+     */
+    public function zUnion($Output, $ZSetKeys)
+    {
+        return $this->redis->zUnion($Output, $ZSetKeys);
+    }
+
+    /**
+     * @desc 计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到 destination 。
+     * 默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
+     * @param $Output
+     * @param $ZSetKeys
+     */
+    public function zInter($Output, $ZSetKeys)
+    {
+        $this->redis->zInter($Output, $ZSetKeys);
+    }
+
+
+    /**
      * @desc 返回有序集中，成员的分数值
      * @param $key
      * @param $member
@@ -779,5 +804,147 @@ class RedisConnect
         return $this->redis->zScore($key, $member);
     }
     /*****************有序集合操作函数-end******************/
+
+    /*****************字符串操作函数-sta******************/
+
+    /**
+     * @desc 如果 key 已经存在并且是一个字符串， APPEND 命令将 value 追加到 key 原来的值的末尾。
+     * 如果 key 不存在， APPEND 就简单地将给定 key 设为 value ，就像执行 SET key value 一样。
+     * @param $key
+     * @param $val
+     * @return int
+     */
+    public function append($key, $val)
+    {
+        return $this->redis->append($key, $val);
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    public function set($key, $value)
+    {
+        return $this->redis->set($key, $value);
+    }
+    public function setBit($key, $offset, $value)
+    {
+        return $this->redis->setBit($key, $offset, $value);
+    }
+
+    /**
+     * @desc 将值 value 关联到 key ，并将 key 的生存时间设为 seconds (以秒为单位)。
+     * 如果 key 已经存在， SETEX 命令将覆写旧值。
+     * @param $key
+     * @param $ttl
+     * @param $value
+     * @return bool
+     */
+    public function setEx($key, $ttl, $value)
+    {
+        return $this->redis->setex($key, $ttl, $value);
+    }
+
+    /**
+     * @desc 将 key 的值设为 value ，当且仅当 key 不存在。
+     * 若给定的 key 已经存在，则 SETNX 不做任何动作
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    public function serNx($key, $value)
+    {
+        return $this->redis->setnx($key, $value);
+    }
+
+    /**
+     * @desc 用 value 参数覆写(overwrite)给定 key 所储存的字符串值，从偏移量 offset 开始。不存在的 key 当作空白字符串处理
+     * @param $key
+     * @param $offset
+     * @param $value
+     * @return string
+     */
+    public function setRange($key, $offset, $value)
+    {
+        return $this->redis->setRange($key, $offset, $value);
+    }
+
+    /**
+     * @desc 返回 key 所储存的字符串值的长度。当 key 储存的不是字符串值时，返回一个错误。
+     * @param $key
+     * @return int
+     */
+    public function strLen($key)
+    {
+        return $this->redis->strlen($key);
+    }
+
+    public function get($key)
+    {
+        return $this->redis->get($key);
+    }
+    public function getBit($key, $offset)
+    {
+        return $this->redis->getBit($key, $offset);
+    }
+    public function getRange($key, $start, $end)
+    {
+        return $this->redis->getRange($key, $start, $end);
+    }
+    public function getSet($key, $value)
+    {
+        return $this->redis->getSet($key, $value);
+    }
+
+    public function inCr($key)
+    {
+        return $this->redis->incr($key);
+    }
+    public function inCrBy($key, $valueInt)
+    {
+        return $this->redis->incrBy($key, $valueInt);
+    }
+    public function inCrByFloat($key, $valueLloat)
+    {
+        return $this->redis->incrByFloat($key, $valueLloat);
+    }
+
+    public function deCr($key)
+    {
+        return $this->redis->decr($key);
+    }
+    public function deCrBy($key, $valueInt)
+    {
+        return $this->redis->decrBy($key, $valueInt);
+    }
+
+    public function mGet($array)
+    {
+        return $this->redis->mget($array);
+    }
+    public function mSet($array)
+    {
+        return $this->redis->mset($array);
+    }
+    public function mSetNx($array)
+    {
+        return $this->redis->msetnx($array);
+    }
+
+    /**
+     * @desc 这个命令和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，而不是像 SETEX 命令那样，以秒为单位
+     */
+    public function pSetEx($key, $ttl, $value)
+    {
+        return $this->redis->psetex($key, $ttl, $value);
+    }
+
+    public function bitCount($key)
+    {
+        return $this->redis->bitCount($key);
+    }
+
+    /*****************字符串操作函数-end******************/
 
 }
