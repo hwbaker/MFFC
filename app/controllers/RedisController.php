@@ -287,11 +287,65 @@ class RedisController
      */
     public function redisString()
     {
+        $keyHello = 'strHello';
         $redisConn = RedisConnect::getInstanceRedis();
-        $res = $redisConn->append('hello', 'world');
+        $val = $redisConn->get($keyHello);
+        echo 'get:' . print_r($val, true);
+
+        $res = $redisConn->append($keyHello, 'world');
+        echo "<br>";
         echo 'append:' . print_r($res, true);
 
+        echo "<br>";
+        echo 'get:' . print_r($redisConn->get($keyHello), true);
 
+        $redisConn->set($keyHello, 'world');
+        echo "<br>";
+        echo 'set=>world:' . print_r($redisConn->get($keyHello), true);
 
+        $redisConn->setEx($keyHello, 100,'helloWorld');
+        echo "<br>2秒后再刷新页面...<br>";
+        echo 'setEx=>newWorld:' . print_r($redisConn->get($keyHello), true);
+
+        $nx = $redisConn->setNx($keyHello, 'nxWorld');
+        var_dump($nx);
+
+        $setRange = $redisConn->setRange($keyHello, 0, 'range');
+        echo "<br>";
+        echo 'setRange:' . print_r($setRange, true) . '；' . print_r($redisConn->get($keyHello), true);
+
+        $strLen = $redisConn->strLen($keyHello);
+        echo "<br>";
+        echo 'strLen:' . print_r($strLen, true);
+
+        $getRange = $redisConn->getRange($keyHello, 0, 4);
+        echo "<br>";
+        echo 'getRange 0,4:' . print_r($getRange, true);
+
+        $getSex = $redisConn->getSet($keyHello, 'new');
+        echo "<br>";
+        echo 'getSex oldVal:' . print_r($getSex, true). '；newVal:' . print_r($redisConn->get($keyHello), true);
+        
+        $keyCount = 'strCount';
+        echo "<br>strCount val:" . print_r($redisConn->get($keyCount), true);
+        $inCr = $redisConn->inCr($keyCount);
+        echo "<br>";
+        echo 'inCr:' . print_r($inCr, true);
+        
+        $inCrBy = $redisConn->inCrBy($keyCount, 2);
+        echo "<br>";
+        echo 'inCrBy:' . print_r($inCrBy, true);
+
+        $inCrBy = $redisConn->inCrByFloat($keyCount, 1.5);
+        echo "<br>";
+        echo 'inCrBy:' . print_r($inCrBy, true);
+
+        $deCr = $redisConn->deCr($keyCount);
+        echo "<br>";
+        echo 'deCr:' . print_r($deCr, true);
+
+        $deCrBy = $redisConn->deCrBy($keyCount, 2);
+        echo "<br>";
+        echo 'deCrBy:' . print_r($deCrBy, true);
     }
 }

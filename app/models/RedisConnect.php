@@ -820,6 +820,7 @@ class RedisConnect
     }
 
     /**
+     * @desc 设置指定 key 的值
      * @param $key
      * @param $value
      * @return bool
@@ -834,8 +835,8 @@ class RedisConnect
     }
 
     /**
-     * @desc 将值 value 关联到 key ，并将 key 的生存时间设为 seconds (以秒为单位)。
-     * 如果 key 已经存在， SETEX 命令将覆写旧值。
+     * @desc 将值 value 关联到 key ，并将 key 的生存时间设为 seconds (以秒为单位)
+     * 如果 key 已经存在， SETEX 命令将覆写旧值
      * @param $key
      * @param $ttl
      * @param $value
@@ -853,7 +854,7 @@ class RedisConnect
      * @param $value
      * @return bool
      */
-    public function serNx($key, $value)
+    public function setNx($key, $value)
     {
         return $this->redis->setnx($key, $value);
     }
@@ -871,7 +872,7 @@ class RedisConnect
     }
 
     /**
-     * @desc 返回 key 所储存的字符串值的长度。当 key 储存的不是字符串值时，返回一个错误。
+     * @desc 返回 key 所储存的字符串值的长度。当 key 储存的不是字符串值时，返回一个错误
      * @param $key
      * @return int
      */
@@ -880,6 +881,11 @@ class RedisConnect
         return $this->redis->strlen($key);
     }
 
+    /**
+     * @desc 获取指定 key 的值
+     * @param $key
+     * @return bool|string
+     */
     public function get($key)
     {
         return $this->redis->get($key);
@@ -888,32 +894,78 @@ class RedisConnect
     {
         return $this->redis->getBit($key, $offset);
     }
+
+    /**
+     * @desc 返回 key 中字符串值的子字符
+     * @param $key
+     * @param $start
+     * @param $end
+     * @return string
+     */
     public function getRange($key, $start, $end)
     {
         return $this->redis->getRange($key, $start, $end);
     }
+
+    /**
+     * @desc 将给定 key 的值设为 value ，并返回 key 的旧值(old value)
+     * @param $key
+     * @param $value
+     * @return string
+     */
     public function getSet($key, $value)
     {
         return $this->redis->getSet($key, $value);
     }
 
+    /**
+     * @desc 将 key 中储存的数字值增一
+     * @param $key
+     * @return int
+     */
     public function inCr($key)
     {
         return $this->redis->incr($key);
     }
-    public function inCrBy($key, $valueInt)
+
+    /**
+     * 将 key 所储存的值加上给定的增量值（increment）
+     * @param string $key
+     * @param int $increment
+     * @return int
+     */
+    public function inCrBy($key, $increment)
     {
-        return $this->redis->incrBy($key, $valueInt);
-    }
-    public function inCrByFloat($key, $valueLloat)
-    {
-        return $this->redis->incrByFloat($key, $valueLloat);
+        return $this->redis->incrBy($key, intval($increment));
     }
 
+    /**
+     * @desc 将 key 所储存的值加上给定的浮点增量值（increment）
+     * @param $key
+     * @param $valueFloat
+     * @return float
+     */
+    public function inCrByFloat($key, $valueFloat)
+    {
+        return $this->redis->incrByFloat($key, floatval($valueFloat));
+    }
+
+    /**
+     * @desc 将 key 中储存的数字值减一
+     * @param $key
+     * @return int
+     */
     public function deCr($key)
     {
         return $this->redis->decr($key);
     }
+
+    /**
+     * @desc 所储存的值减去给定的减量值（decrement）
+     * @param $key
+     * @param $valueInt
+     * @return int
+     */
     public function deCrBy($key, $valueInt)
     {
         return $this->redis->decrBy($key, $valueInt);
@@ -934,6 +986,10 @@ class RedisConnect
 
     /**
      * @desc 这个命令和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，而不是像 SETEX 命令那样，以秒为单位
+     * @param $key
+     * @param $ttl
+     * @param $value
+     * @return bool
      */
     public function pSetEx($key, $ttl, $value)
     {
