@@ -1,6 +1,7 @@
 <?php
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 /**
+ * @desc Rabbit MQ:发布者
  * /usr/bin/php public/crontab/receive.php
  */
 require __DIR__ . '/../crontab.php';

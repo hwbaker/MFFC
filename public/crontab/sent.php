@@ -2,6 +2,7 @@
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 /**
+ * @desc Rabbit MQ:生产者
  * /usr/bin/php public/crontab/sent.php
  */
 require __DIR__ . '/../crontab.php';
@@ -21,3 +22,5 @@ echo " [x] Sent '{$queueContent}'\n";
 
 $channel->close();
 $connection->close();
+
+print_r(array_slice($argv, 1));

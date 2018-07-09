@@ -3,22 +3,25 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 /**
  * @desc Rabbit MQ:生产者
- * /usr/bin/php public/crontab/sent.php
+ * /usr/bin/php public/crontab/workQueuesTask.php
  */
 require __DIR__ . '/../crontab.php';
 
-$queue = 'hello';
-$queueContent = $queue . ' World: ' . date('Y-m-d H:i:s');
-
+$queueName = 'task_queue';
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->queue_declare($queue, false, false, false, false);
+$channel->queue_declare($queueName, false, true, false, false);
 
-$msg = new AMQPMessage($queueContent);
-$channel->basic_publish($msg, '', $queue);
+$data = implode(' ', array_slice($argv, 1));
+if(empty($data)) $data = "Hello World!";
+$msg = new AMQPMessage($data,
+    array('delivery_mode' => 2) # make message persistent
+);
 
-echo " [x] Sent '{$queueContent}'\n";
+$channel->basic_publish($msg, '', $queueName);
+
+echo " [x] Sent ", $data, "\n";
 
 $channel->close();
 $connection->close();
