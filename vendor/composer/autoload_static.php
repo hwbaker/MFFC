@@ -133,6 +133,8 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
         'BaseController' => __DIR__ . '/../..' . '/app/controllers/BaseController.php',
         'Company' => __DIR__ . '/../..' . '/app/models/Company.php',
         'HomeController' => __DIR__ . '/../..' . '/app/controllers/HomeController.php',
+        'RedisConnect' => __DIR__ . '/../..' . '/app/models/RedisConnect.php',
+        'RedisController' => __DIR__ . '/../..' . '/app/controllers/RedisController.php',
         'Warehouse' => __DIR__ . '/../..' . '/app/models/Warehouse.php',
     );
 
