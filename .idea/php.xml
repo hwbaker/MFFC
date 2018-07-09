@@ -26,6 +26,7 @@
       <path value="$PROJECT_DIR$/vendor/PHPExcel-1.8/Examples" />
       <path value="$PROJECT_DIR$/vendor/PHPExcel-1.8/Documentation" />
       <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/php-amqplib/php-amqplib" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

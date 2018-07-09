@@ -24,6 +24,7 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PhpAmqpLib\\' => 11,
         ),
         'N' => 
         array (
@@ -78,6 +79,10 @@ class ComposerStaticInit0e2448304f26d52d30b7d34cd80efe37
         'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
         'NoahBuscher\\Macaw\\' => 
         array (

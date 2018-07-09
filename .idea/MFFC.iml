@@ -19,6 +19,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/support" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/noahbuscher/macaw" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-amqplib/php-amqplib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpoffice/phpspreadsheet" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
@@ -49,6 +50,7 @@
           <root url="file://$MODULE_DIR$/vendor/illuminate/support" />
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/noahbuscher/macaw" />
+          <root url="file://$MODULE_DIR$/vendor/php-amqplib/php-amqplib" />
           <root url="file://$MODULE_DIR$/vendor/phpoffice/phpspreadsheet" />
           <root url="file://$MODULE_DIR$/vendor/psr/cache" />
           <root url="file://$MODULE_DIR$/vendor/psr/container" />
@@ -75,6 +77,7 @@
           <root url="file://$MODULE_DIR$/vendor/illuminate/support" />
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/noahbuscher/macaw" />
+          <root url="file://$MODULE_DIR$/vendor/php-amqplib/php-amqplib" />
           <root url="file://$MODULE_DIR$/vendor/phpoffice/phpspreadsheet" />
           <root url="file://$MODULE_DIR$/vendor/psr/cache" />
           <root url="file://$MODULE_DIR$/vendor/psr/container" />
